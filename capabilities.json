@@ -1,0 +1,51 @@
+{
+    "dataRoles": [
+        {
+            "displayName": "Stichtage",
+            "name": "values",
+            "kind": "Grouping" ,
+            "preferredTypes": [
+                {
+                    "text": true
+                }
+                ]
+        }
+       
+    ],
+    "dataViewMappings": [
+        {
+            "conditions": [
+                {
+                    "values": {
+                        "max": 1
+                    }
+                }
+            ],
+            "categorical": {
+                "categories": {
+                    "for": {
+                        "in": "values"
+                    },
+                    "dataReductionAlgorithm": {
+                        "top": {
+                            "count": 100000
+                        }
+                    }
+                }
+            }
+        }
+    ],
+    "objects": {
+        "commentContext":{
+            "displayName": "Kommentarbox Einstellungen",
+            "properties": {
+                "context":{
+                    "displayName": "Kategorien",
+                    "type": {
+                        "text": true
+                    }    
+                }
+            }
+        }
+    }
+}

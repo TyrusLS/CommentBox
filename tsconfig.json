@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "allowJs": false,
+        "esModuleInterop": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "module": "CommonJS",
+        "allowSyntheticDefaultImports": true,
+        "jsx": "react",
+        "types": ["react", "react-dom"],
+        "target": "es6",
+        "sourceMap": true,
+        "outDir": "./.tmp/build/",
+        "moduleResolution": "node",
+        "declaration": true,
+        "lib": [
+            "es2015",
+            "dom"
+        ]
+    },
+    "files": [
+        "./src/visual.ts"
+    ]
+}
