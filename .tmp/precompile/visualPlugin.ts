@@ -5,8 +5,8 @@ import VisualConstructorOptions = powerbiVisualsApi.extensibility.visual.VisualC
 import DialogConstructorOptions = powerbiVisualsApi.extensibility.visual.DialogConstructorOptions;
 var powerbiKey: any = "powerbi";
 var powerbi: any = window[powerbiKey];
-var CommentVisualForPBI_DEBUG: IVisualPlugin = {
-    name: 'CommentVisualForPBI_DEBUG',
+var CommentVisualForPBI: IVisualPlugin = {
+    name: 'CommentVisualForPBI',
     displayName: 'CommentVisual',
     class: 'Visual',
     apiVersion: '3.8.0',
@@ -27,6 +27,6 @@ var CommentVisualForPBI_DEBUG: IVisualPlugin = {
 if (typeof powerbi !== "undefined") {
     powerbi.visuals = powerbi.visuals || {};
     powerbi.visuals.plugins = powerbi.visuals.plugins || {};
-    powerbi.visuals.plugins["CommentVisualForPBI_DEBUG"] = CommentVisualForPBI_DEBUG;
+    powerbi.visuals.plugins["CommentVisualForPBI"] = CommentVisualForPBI;
 }
-export default CommentVisualForPBI_DEBUG;
+export default CommentVisualForPBI;

@@ -25,12 +25,19 @@ import VisualObjectInstance = powerbi.VisualObjectInstance;
 interface CommentBoxSettings {
     commentContext:{
         context: string;
+    },
+    apiurl:{
+        url: string;
     }
+
 }
 let defaultSettings: CommentBoxSettings = {
     commentContext:{
         context:""
+    },apiurl:{
+        url: ""
     }
+    
 }
 
 
@@ -63,6 +70,8 @@ let objects = dataViews[0].metadata.objects;
 let commentBoxSettings: CommentBoxSettings = {
     commentContext:{
         context: getValue<string>(objects, 'commentContext', 'context', defaultSettings.commentContext.context),
+    },apiurl:{
+        url: getValue<string>(objects, 'apiurl', 'url', defaultSettings.apiurl.url),
     }
 }
 return{
@@ -100,6 +109,17 @@ export class Visual implements IVisual {
                 });
             }catch(err){console.log(err)}
                 break;
+                case 'apiurl':
+                    try{
+                        objectEnumeration.push({
+                            objectName: objectName,
+                            properties:{
+                                url: this.commentBoxSettings.apiurl.url
+                            },
+                            selector: null
+                        });
+                    }catch(err){console.log(err)}
+                    break;
             };
            
         return objectEnumeration
@@ -125,18 +145,20 @@ export class Visual implements IVisual {
     let dataViews = options.dataViews;
     let categorical = dataViews[0].categorical;
     let category = categorical.categories[0];
-    let context
-    try{ context= settings.commentContext.context}catch(err){console.log(err)}
+    let context, url
+    try{ context= settings.commentContext.context
+         url = settings.apiurl.url
+        }catch(err){console.log(err)}
 
    
     if(options.dataViews && options.dataViews[0]){
-        AllComponents.update(category.values, context);
+        AllComponents.update(category.values, context,url);
     } else {
         this.clear();
     }
         }
         private clear() {
-            AllComponents.update([''],'');
+            AllComponents.update([''],'','');
         }
     
 }

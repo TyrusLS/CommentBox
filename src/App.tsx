@@ -13,6 +13,7 @@ export const initialDataOptions: DataOption[] = [
 export class AllComponents extends React.Component<{}>{
   private static updateCallback: (data: DataOption[]) => void = null;
   private static updateContext: (context: string) => void= null;
+  private static updateUrl: (url: string) => void = null;
   constructor(props: any){
     super(props)
     this.state = {
@@ -20,13 +21,14 @@ export class AllComponents extends React.Component<{}>{
       date: new Date().toLocaleDateString('de-DE'),
       context: '',
       comment: '',
-      loading: false
+      loading: false,
+      url: ''
     }
       
   }
 
   
-  public static update(data: any[], context: string) {
+  public static update(data: any[], context: string, url: string) {
     var newState: DataOption[]= []
     for (let index = 0; index < data.length; index++) {
       try{
@@ -42,6 +44,8 @@ export class AllComponents extends React.Component<{}>{
           AllComponents.updateCallback(newState);
         }if(typeof AllComponents.updateContext === 'function'){
           AllComponents.updateContext(context);
+        }if(typeof AllComponents.updateUrl === 'function'){
+          AllComponents.updateUrl(url)
         }
         
     }
@@ -50,16 +54,19 @@ export class AllComponents extends React.Component<{}>{
       date: new Date().toLocaleDateString('de-DE'),
       context: '',
       comment: '',
-      loading: false};
+      loading: false,
+      url: ''};
       
     public componentWillMount() {
       AllComponents.updateCallback = (newState: DataOption[]): void => { this.setState({data: newState}); }
       AllComponents.updateContext = (context: string): void => { this.setState({context: context}); }
+      AllComponents.updateUrl = (url: string): void => {this.setState({url : url}); }
     }
     
     public componentWillUnmount() {
       AllComponents.updateCallback = null;
       AllComponents.updateContext = null;
+      AllComponents.updateUrl = null;
     }
     public loadData(){
       
@@ -95,7 +102,7 @@ export class AllComponents extends React.Component<{}>{
       <Stack spacing={2} className="stack"> 
       <div className="item"><Editor  commentToParent={commentToParent}/> </div>
       <div className="send">
-      <button onClick={ ()=> {this.loadData(); SendData(this.state.date, this.state.context, this.state.comment)} }className={'send--Btn'}>
+      <button onClick={ ()=> {this.loadData(); SendData(this.state.date, this.state.context, this.state.comment, this.state.url)} }className={'send--Btn'}>
       Senden
       </button>
       </div>
@@ -107,12 +114,12 @@ export class AllComponents extends React.Component<{}>{
 }
 }
 
-async function SendData(date, context, comment){
-  const URL = 'http://localhost:1337/comment/create/comment';
+async function SendData(date, context, comment, url){
+  const URL = url;
   const postData = {
-    datum: date,
-    kategorie: context,
-    kommentar: comment
+    ReferenceDate: date,
+    Context: context,
+    Content: comment
   }
   try{
   const res = await fetch(`${URL}`, {

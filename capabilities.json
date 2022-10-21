@@ -46,6 +46,17 @@
                     }    
                 }
             }
+        },
+        "apiurl":{
+            "displayName": "URL",
+            "properties": {
+                "url":{
+                    "displayName": "url",
+                    "type": {
+                        "text": true
+                    }    
+                }
+            }
         }
     }
 }
