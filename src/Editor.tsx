@@ -5,7 +5,6 @@ import "react-quill/dist/quill.snow.css";
 import "../style/style.css"
 
 
-
 const Editor: React.FC<any> = ({commentToParent}) => {
   const [startValue, setValue] = useState("");
   const modules = {
@@ -16,11 +15,9 @@ const Editor: React.FC<any> = ({commentToParent}) => {
         [
           { list: "ordered" },
           { list: "bullet" },
-          { indent: "-1" },
-          { indent: "+1" },
           { align: [] }
         ],
-        ["link", "image", "video"],
+        ["image"],
         ["clean"]
       ]
     },
@@ -37,8 +34,6 @@ const format = [
     "color",
     "list",
     "bullet",
-    "indent",
-    "link",
     "image",
     "align"
   ]

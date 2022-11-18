@@ -1,6 +1,7 @@
 import React from "react";
 import "../style/style.css";
 import { DataOption } from "./docs/data";
+import "react-quill/dist/quill.snow.css";
 export declare const initialDataOptions: DataOption[];
 export declare class AllComponents extends React.Component<{}> {
     private static updateCallback;

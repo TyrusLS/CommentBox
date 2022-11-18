@@ -1,4 +1,4 @@
 import powerbiVisualsApi from "powerbi-visuals-api";
 import IVisualPlugin = powerbiVisualsApi.visuals.plugins.IVisualPlugin;
-declare var CommentVisualForPBI: IVisualPlugin;
-export default CommentVisualForPBI;
+declare var CommentVisualForPBI_DEBUG: IVisualPlugin;
+export default CommentVisualForPBI_DEBUG;

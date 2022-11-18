@@ -5,6 +5,10 @@ import "../style/style.css"
 import { RingLoader } from "react-spinners";
 import { DataOption } from "./docs/data";
 import Select from 'react-select';
+import "react-quill/dist/quill.snow.css";
+
+
+
 
 export const initialDataOptions: DataOption[] = [
   { value: '', label: ''  }
@@ -29,9 +33,13 @@ export class AllComponents extends React.Component<{}>{
 
   
   public static update(data: any[], context: string, url: string) {
+
+
+
     var newState: DataOption[]= []
     for (let index = 0; index < data.length; index++) {
       try{
+        console.log(new Date("2022.03.31").toLocaleDateString("de-DE"));
         newState.push({
           value: convert(data[index]),
          label: convert(data[index])
@@ -39,6 +47,17 @@ export class AllComponents extends React.Component<{}>{
       }catch(err){
         console.log(err)
       }
+
+      const  customSort = (a,b) => {
+        const dateA = new Date(a.value);
+        const dateB = new Date(b.value);
+          if (dateA < dateB) return 1;
+          else if(dateA > dateB) return -1;
+          return 0;
+        };
+        newState = newState.sort(customSort);
+
+
     }
         if(typeof AllComponents.updateCallback === 'function'){
           AllComponents.updateCallback(newState);
@@ -92,19 +111,14 @@ export class AllComponents extends React.Component<{}>{
           this.state.loading ? 
           <RingLoader color="#288BA8" />
           :
-      <div  className="alltogether">
-        
-      <Stack spacing={2} >
-      <Select options={Data} onChange={this.handleChange.bind(this)}/>
-      
-      </Stack>
-      
+      <div  className="alltogether">  
+      <Select className="select" options={Data} onChange={this.handleChange.bind(this)}/>
       <Stack spacing={2} className="stack"> 
       <div className="item"><Editor  commentToParent={commentToParent}/> </div>
       <div className="send">
       <button onClick={ ()=> {this.loadData(); SendData(this.state.date, this.state.context, this.state.comment, this.state.url)} }className={'send--Btn'}>
       Senden
-      </button>
+</button>
       </div>
       </Stack>
       </div>
@@ -116,10 +130,14 @@ export class AllComponents extends React.Component<{}>{
 
 async function SendData(date, context, comment, url){
   const URL = url;
+
+
+  comment = TransformStyles(comment)
+
   const postData = {
-    ReferenceDate: date,
-    Context: context,
-    Content: comment
+    Stichtag: date,
+    Abschnitt: context,
+    Kommentar: comment
   }
   try{
   const res = await fetch(`${URL}`, {
@@ -155,7 +173,8 @@ async function SendData(date, context, comment, url){
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
       day = ("0" + date.getDate()).slice(-2);
-    return [day,mnth,date.getFullYear()].join(".");
+    return [date.getFullYear(),mnth,day].join(".");
+    //return "01.09.2013 00:00:00";
   }
   function convertTest123(str) {
     var mnths = {
@@ -174,5 +193,38 @@ async function SendData(date, context, comment, url){
       },
       date = str.split(" ");
   
-    return [date[3], mnths[date[1]], date[2]].join("-");
+  //  return [date[3], mnths[date[1]], date[2]].join("/")+"12:00.00Am";
+   
   }
+
+
+  function TransformStyles(comment){
+    let style = `
+    <head>
+    <style>
+    .ql-size-small {
+      font-size: 0.75em;
+    }
+    .ql-size-large {
+      font-size: 1.5em;
+    }
+    .ql-size-huge {
+      font-size: 2.5em;
+    }
+    .ql-align-center {
+      text-align: center;
+    }
+    .ql-align-right {
+      text-align: right;
+    }
+    .ql-align-justify {
+      text-align: justify;
+    }
+    </style>
+    </head>
+    `;
+    
+      
+    return (style + comment); 
+  }
+  

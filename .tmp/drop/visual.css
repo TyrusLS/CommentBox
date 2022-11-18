@@ -969,7 +969,7 @@ p em {
   align-content: center;
 }
 .item {
-  margin-top: 30px;
+  margin-top: 10px;
   margin-right: 10px;
   margin-left: 10px;
 }
@@ -977,8 +977,8 @@ p em {
   margin-left: 12px;
 }
 .send {
-  margin-top: 30px;
-  margin-left: 10px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .App {
   display: flex;
@@ -1002,4 +1002,13 @@ p em {
 .send--btn:hover {
   transform: translateY(-2px);
 }
+.select {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+.App {
+  /* transform: scale(0.8);*/
+}
 
+
+/*# sourceMappingURL=https://localhost:8080/assets/visual.css.map*/
