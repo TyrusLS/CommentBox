@@ -960,25 +960,11 @@ p em {
   font-display: swap;
   src: url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Me5Q.ttf) format('truetype');
 }
-.alltogether {
-  width: 100%;
-  align-content: center;
-}
-.stack {
-  width: 100%;
-  align-content: center;
-}
 .item {
-  margin-top: 10px;
-  margin-right: 10px;
-  margin-left: 10px;
+  margin: 5px;
 }
 .context {
-  margin-left: 12px;
-}
-.send {
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 9px;
 }
 .App {
   display: flex;
@@ -988,27 +974,20 @@ p em {
   height: 100vh;
 }
 .send--Btn {
-  padding: 10px 20px;
-  font-size: 18px;
+  padding: 5px 15px;
+  font-size: 12px;
   background-color: lightslategray;
   color: white;
   border: none;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
-  border-radius: 10px;
+  border-radius: 7px;
   cursor: pointer;
   transition: transform o 0.3s ease;
-}
-.send--btn:hover {
-  transform: translateY(-2px);
 }
 .select {
   margin-right: 10px;
   margin-left: 10px;
-}
-.App {
-  /* transform: scale(0.8);*/
+  font-size: 11px;
 }
 
-
-/*# sourceMappingURL=https://localhost:8080/assets/visual.css.map*/

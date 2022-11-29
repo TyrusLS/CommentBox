@@ -44,6 +44,7 @@ const format = [
    
       <ReactQuill  
       value={startValue} 
+      
       onChange={(value) => {setValue(value) ; commentToParent(value)}    }
       modules={modules}
       formats={format}

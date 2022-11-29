@@ -41,8 +41,8 @@ export class AllComponents extends React.Component<{}>{
       try{
         console.log(new Date("2022.03.31").toLocaleDateString("de-DE"));
         newState.push({
-          value: convert(data[index]),
-         label: convert(data[index])
+          value: convertValue(data[index]),
+         label: convertLabel(data[index])
         });
       }catch(err){
         console.log(err)
@@ -104,7 +104,34 @@ export class AllComponents extends React.Component<{}>{
       this.setState({comment: commentData});
   }
     var Data = this.state.data;
-    
+    const customStyles = {
+      control: (provided, state) => ({
+        ...provided,
+        background: '#fff',
+        borderColor: '#9e9e9e',
+        minHeight: '25px',
+        height: '25px',
+        boxShadow: state.isFocused ? null : null,
+      }),
+  
+      valueContainer: (provided, state) => ({
+        ...provided,
+        height: '25px',
+        padding: '0 6px'
+      }),
+  
+      input: (provided, state) => ({
+        ...provided,
+        margin: '0px',
+      }),
+      indicatorSeparator: state => ({
+        display: 'none',
+      }),
+      indicatorsContainer: (provided, state) => ({
+        ...provided,
+        height: '25px',
+      }),
+    };
     return (
       <div className="App">
       {
@@ -112,7 +139,7 @@ export class AllComponents extends React.Component<{}>{
           <RingLoader color="#288BA8" />
           :
       <div  className="alltogether">  
-      <Select className="select" options={Data} onChange={this.handleChange.bind(this)}/>
+      <Select className="select" styles={customStyles} options={Data} onChange={this.handleChange.bind(this)}/>
       <Stack spacing={2} className="stack"> 
       <div className="item"><Editor  commentToParent={commentToParent}/> </div>
       <div className="send">
@@ -130,8 +157,6 @@ export class AllComponents extends React.Component<{}>{
 
 async function SendData(date, context, comment, url){
   const URL = url;
-
-
   comment = TransformStyles(comment)
 
   const postData = {
@@ -169,12 +194,16 @@ async function SendData(date, context, comment, url){
   
   console.log(date, context, comment);
   }
-  function convert(str) {
+  function convertValue(str) {
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
       day = ("0" + date.getDate()).slice(-2);
     return [date.getFullYear(),mnth,day].join(".");
     //return "01.09.2013 00:00:00";
+  }
+  function convertLabel(str){
+    var date = new Date(str);
+    return  [date.toLocaleString('de-DE', { month: 'long' }),date.getFullYear()].join(" ");
   }
   function convertTest123(str) {
     var mnths = {
@@ -202,6 +231,9 @@ async function SendData(date, context, comment, url){
     let style = `
     <head>
     <style>
+    p {
+      font-family: Segoe UI; 
+    }
     .ql-size-small {
       font-size: 0.75em;
     }
